@@ -59,7 +59,10 @@ void quebrarSenha() {
 	int j = 0;
 
 	//Exige o input do usuario com o nome do arquivo
+	system("clear");
+	printf("-- Q U E B R A R  S E N H A --\n");
   printf("Informe o nome do arquivo: ");
+	getchar();
   scanf("%[^\n]s", db.arquivo);
 
 	//Verifica se o arquivo existe e é possível acessalo 
@@ -187,9 +190,7 @@ void consultaHistorico() {
     printf("\nSenha: %s", db.senha);
 
   }
-
   fclose(p);
-
 }
 
 void descriptografar() {
@@ -204,6 +205,7 @@ void descriptografar() {
   system("clear");
   printf("--- D E S C R I P T O G R A F I A --\n");
   printf("Informe o nome do arquivo: ");
+	getchar();
   scanf("%[^\n]s", db.arquivo);
   getchar();
   printf("Informe a senha: ");
@@ -282,9 +284,10 @@ void criptografar() {
     int xor = 1;
 
 		//Limpa o console e pede o input do usuário
-    system("cls");
+    system("clear");
     printf("--- C R I P T O G R A F I A --\n");
     printf("Informe a mensagem a ser criptografada: ");
+		getchar();
     scanf("%[^\n]s", db.mensagem);
     getchar();
     printf("Informe o nome do arquivo: ");
@@ -338,8 +341,43 @@ void criptografar() {
 
 int main(int argc, char *argv[] ) {
  if (argc != 2){
-		printf("Número de argumentos inválido");
-		exit(0);
+		char select;
+		while (select != 'x'){
+			printf("[c] - Criptografia\n");
+			printf("[d] - Descriptografia\n");
+			printf("[q] - Quebrar Senha\n");
+			printf("[1] - Consultar Histórico\n");
+			printf("[x] - Sair\n");
+			printf("Escolha a opção desejada: ");
+			scanf("%[^\n]c", &select);
+			switch (select){
+				case 'c':{
+					criptografar();
+					getchar();
+					break;
+				}
+				case 'd':{
+					descriptografar();
+					getchar();
+					break;
+				}
+				case 'q':{
+					quebrarSenha();
+					getchar();
+					break;
+				}
+				case '1':{
+					consultaHistorico();
+					getchar();
+					break;
+				}
+				case 'x':{
+					printf("Saindo do Sistema");
+					exit(0);
+					break;
+				}
+			}
+		}
 	}
 	
 	if(strcmp(argv[1], "-c") == 0){
